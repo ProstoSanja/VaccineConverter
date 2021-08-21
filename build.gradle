@@ -1,0 +1,55 @@
+plugins {
+    id 'org.springframework.boot' version '2.5.3'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+group = 'com.thatguyalex'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '16'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.apache.pdfbox:pdfbox:2.0.24'
+
+    implementation 'com.google.zxing:core:3.4.1'
+    implementation 'com.google.zxing:javase:3.4.1'
+
+    implementation 'com.google.auth:google-auth-library-oauth2-http:1.1.0'
+
+    implementation files('./gpay/google-walletobjects-v1-rev_20200922-java.jar')
+
+    implementation 'com.google.code.gson:gson:2.8.8'
+
+    implementation group: 'com.google.api-client', name: 'google-api-client', version: '1.23.0'
+
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2', 'io.jsonwebtoken:jjwt-gson:0.11.2'
+
+    implementation 'se.digg.dgc:dgc-create-validate:1.0.1'
+    implementation 'se.digg.dgc:dgc-schema:1.0.1'
+
+    implementation 'org.springframework.boot:spring-boot-starter-actuator:2.5.3'
+//    implementation 'org.springframework.boot:spring-boot-starter-jdbc:2.5.3'
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.5.3'
+//    implementation 'org.flywaydb:flyway-core:7.12.1'
+    compileOnly 'org.projectlombok:lombok:1.18.20'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools:2.5.3'
+//    runtimeOnly 'org.postgresql:postgresql:42.2.23.jre7'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor:2.5.3'
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.3'
+}
+
+test {
+    useJUnitPlatform()
+}
