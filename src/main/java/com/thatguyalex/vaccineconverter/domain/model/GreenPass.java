@@ -16,4 +16,6 @@ public class GreenPass {
     private String dateOfBirth, dateOfPass;
     private String vaccineType;
 
+    private String googlePayLink, applePayLink;
+
 }

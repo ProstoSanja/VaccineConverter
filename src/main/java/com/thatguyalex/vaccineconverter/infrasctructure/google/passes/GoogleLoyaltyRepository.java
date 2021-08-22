@@ -19,10 +19,10 @@ public class GoogleLoyaltyRepository implements IntegratedPassProvider {
     private final GooglePassesClient client;
 
     @Override
-    public String generatePassLink(GreenPass greenPass) {
+    public void generatePassLink(GreenPass greenPass) {
         var googlePayId = createLoyaltyObject("1", greenPass);
 
-        return "https://pay.google.com/gp/v/save/" + generateJwt(googlePayId);
+        greenPass.setGooglePayLink("https://pay.google.com/gp/v/save/" + generateJwt(googlePayId));
     }
 
     @SneakyThrows

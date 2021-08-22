@@ -4,6 +4,6 @@ import com.thatguyalex.vaccineconverter.domain.model.GreenPass;
 
 public interface IntegratedPassProvider {
 
-    String generatePassLink(GreenPass greenPass);
+    void generatePassLink(GreenPass greenPass);
 
 }
