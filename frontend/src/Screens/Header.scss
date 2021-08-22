@@ -1,0 +1,21 @@
+.App-Header {
+    display: flex;
+
+    .column-content {
+        text-align: start;
+        padding: calc(10px + 4vmin);
+
+        h1 {
+            font-size: calc(10px + 4vmin);
+        }
+
+        p {
+            color: #333333;
+        }
+
+        li {
+            font-size: calc(10px + 1vmin);
+        }
+
+    }
+}

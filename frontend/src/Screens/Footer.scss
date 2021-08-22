@@ -1,0 +1,16 @@
+.App-Footer {
+  display: flex;
+
+  .ant-col {
+    display: flex;
+  }
+
+  .column-content {
+    margin: auto;
+    padding: calc(10px + 4vmin);
+
+    h2 {
+      color: white;
+    }
+  }
+}

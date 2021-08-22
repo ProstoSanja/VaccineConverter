@@ -1,8 +1,8 @@
 package com.thatguyalex.vaccineconverter.presentation;
 
 import com.thatguyalex.vaccineconverter.aplication.ProcessRawPass;
-import com.thatguyalex.vaccineconverter.presentation.classes.GreenPassToResponseConverter;
-import com.thatguyalex.vaccineconverter.presentation.utils.ProcessGreenPassResponse;
+import com.thatguyalex.vaccineconverter.presentation.utils.GreenPassToResponseConverter;
+import com.thatguyalex.vaccineconverter.presentation.classes.ProcessGreenPassResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.PostMapping;

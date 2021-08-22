@@ -1,4 +1,4 @@
-package com.thatguyalex.vaccineconverter.presentation.utils;
+package com.thatguyalex.vaccineconverter.presentation.classes;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

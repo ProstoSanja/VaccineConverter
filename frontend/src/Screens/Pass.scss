@@ -1,0 +1,23 @@
+.App-Pass {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: center;
+
+
+  .left {
+    flex-grow: 1;
+    padding: calc(10px + 2vmin);
+
+    .Card {
+      border-radius: 20px;
+      border-color: darkgrey;
+    }
+
+  }
+
+  .right {
+    flex-grow: 1;
+    padding: calc(10px + 2vmin);
+  }
+}

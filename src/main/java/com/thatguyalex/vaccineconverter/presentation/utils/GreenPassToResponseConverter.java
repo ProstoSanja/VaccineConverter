@@ -1,7 +1,7 @@
-package com.thatguyalex.vaccineconverter.presentation.classes;
+package com.thatguyalex.vaccineconverter.presentation.utils;
 
 import com.thatguyalex.vaccineconverter.domain.model.GreenPass;
-import com.thatguyalex.vaccineconverter.presentation.utils.ProcessGreenPassResponse;
+import com.thatguyalex.vaccineconverter.presentation.classes.ProcessGreenPassResponse;
 
 public class GreenPassToResponseConverter {
 
