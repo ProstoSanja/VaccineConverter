@@ -8,7 +8,7 @@ import Pass from "./Screens/Pass";
 class App extends Component {
 
     state = {
-        greenPass: null//new GreenPass()
+        greenPass: null//2//new GreenPass()
     }
 
     render() {

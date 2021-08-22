@@ -26,3 +26,11 @@
   background-color: #003399;
   flex-grow: 1;
 }
+
+
+.txtR {
+  text-align: end;
+}
+.txtM {
+  text-align: center;
+}

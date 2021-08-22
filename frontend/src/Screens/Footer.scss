@@ -5,6 +5,10 @@
     display: flex;
   }
 
+  .ant-upload-drag {
+    background-color: #eeeeee;
+  }
+
   .column-content {
     margin: auto;
     padding: calc(10px + 4vmin);

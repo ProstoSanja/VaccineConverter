@@ -1,7 +1,16 @@
 import './Footer.scss';
-import {Button, Col, Row} from "antd";
+import {Button, Col, Row, Upload, message} from "antd";
+import { InboxOutlined } from '@ant-design/icons';
+
+const { Dragger } = Upload;
 
 function Footer() {
+
+    const uploadProps = {
+        multiple: false,
+        accept: "pdf"
+    }
+
     return (
         <div className="App-Footer">
             <Row>
@@ -12,9 +21,12 @@ function Footer() {
                 </Col>
                 <Col md={12} sm={24}>
                     <div className="column-content">
-                        <Button type="primary" shape="round" size={"large"}>
-                            Loo mobiilne pass
-                        </Button>
+                        <Dragger {...uploadProps}>
+                            <p className="ant-upload-drag-icon">
+                                <InboxOutlined />
+                            </p>
+                            <p className="ant-upload-text">Vajutage et valida faili laadimiseks</p>
+                        </Dragger>
                     </div>
                 </Col>
             </Row>

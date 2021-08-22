@@ -1,23 +1,51 @@
 .App-Pass {
   display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  justify-content: center;
+  flex-direction: column;
 
-
-  .left {
+  .ant-row {
     flex-grow: 1;
-    padding: calc(10px + 2vmin);
+  }
 
-    .Card {
-      border-radius: 20px;
-      border-color: darkgrey;
+  //.ant-col {
+  //  display: flex;
+  //}
+
+  h1 {
+    color: white;
+  }
+
+  .header {
+    align-self: center;
+  }
+
+  .ant-card-body {
+    text-align: start;
+    p, b { //, .ant-col {
+      display: block;
+    }
+
+    .footer {
+      margin: 10px 0 0 0;
+      text-align: center;
+    }
+  }
+
+  .save-buttons {
+    display: flex;
+    flex-direction: column;
+
+    button {
+      margin: 20px;
     }
 
   }
 
-  .right {
-    flex-grow: 1;
-    padding: calc(10px + 2vmin);
+  .column-content {
+    margin: auto;
+    padding: calc(10px + 4vmin);
+
+    h2 {
+      color: white;
+    }
   }
 }
