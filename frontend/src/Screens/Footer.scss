@@ -1,20 +1,21 @@
 .App-Footer {
+  background-color: #003399;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
 
-  .ant-col {
-    display: flex;
+  &:hover {
+    background-color: #002288;
   }
 
-  .ant-upload-drag {
-    background-color: #eeeeee;
+  p {
+    color: #eeeeee;
+    margin: 0;
   }
 
-  .column-content {
-    margin: auto;
-    padding: calc(10px + 4vmin);
-
-    h2 {
-      color: white;
-    }
+  .footerContent {
+    flex: 1;
   }
+
 }

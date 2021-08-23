@@ -8,9 +8,11 @@ import com.thatguyalex.vaccineconverter.infrasctructure.greenpass.GreenPassCerti
 import com.thatguyalex.vaccineconverter.infrasctructure.greenpass.GreenPassRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class ApplicationConfiguration {
+public class ApplicationConfiguration implements WebMvcConfigurer {
 
     @Bean
     GoogleAuth googleAuth() {
@@ -42,6 +44,11 @@ public class ApplicationConfiguration {
     @Bean
     ProcessRawPass processRawPass(GreenPassRepository greenPassRepository, GoogleLoyaltyRepository googleLoyaltyRepository) {
         return new ProcessRawPass(greenPassRepository, googleLoyaltyRepository);
+    }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**").allowedMethods("*");
     }
 
 }

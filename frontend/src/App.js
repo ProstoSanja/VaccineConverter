@@ -11,12 +11,18 @@ class App extends Component {
         greenPass: null//2//new GreenPass()
     }
 
+    setPassCallback = (item) => {
+        this.setState({
+            greenPass: item,
+        })
+    }
+
     render() {
         const greenPass = this.state.greenPass;
         return (
             <div className="App">
                 {greenPass ? null : <Header/>}
-                {greenPass ? null : <Footer/>}
+                {greenPass ? null : <Footer setPassCallback={this.setPassCallback}/>}
                 {greenPass ? <Pass greenPass={greenPass}/> : null}
             </div>
         );

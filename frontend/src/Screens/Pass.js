@@ -17,7 +17,6 @@ class Pass extends Component {
                             <Card
                                 hoverable
                                 title="COVID-19 Immuniseerimispass"
-                                footer
                             >
                                 <Row>
                                     <Col span={12}>
