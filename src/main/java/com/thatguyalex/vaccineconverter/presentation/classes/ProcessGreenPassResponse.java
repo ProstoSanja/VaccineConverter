@@ -11,7 +11,7 @@ public class ProcessGreenPassResponse {
 
     private String firstName, lastName;
     private String dosesAdministered;
-    private String dateOfPass;
+    private String dateOfPass, dateOfBirth;
     private String vaccineType;
     private String googlePayLink, applePayLink;
 

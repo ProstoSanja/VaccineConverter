@@ -1,8 +1,7 @@
-import './App.css';
+import './App.scss';
 import {Component} from "react";
 import Header from "./Screens/Header";
 import Footer from "./Screens/Footer";
-import GreenPass from "./classes/GreenPass";
 import Pass from "./Screens/Pass";
 
 class App extends Component {

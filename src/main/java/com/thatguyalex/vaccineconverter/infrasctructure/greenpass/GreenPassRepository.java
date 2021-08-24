@@ -25,13 +25,14 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
 public class GreenPassRepository {
 
     private final DGCDecoder dgcDecoder;
+    private final GreenPassNameProvider greenPassNameProvider;
 
-    public GreenPassRepository(GreenPassCertificateProvider greenPassCertificateProvider) {
-        dgcDecoder = new DefaultDGCDecoder(new DefaultDGCSignatureVerifier(), greenPassCertificateProvider);
+    public GreenPassRepository(GreenPassCertificateProvider greenPassCertificateProvider, GreenPassNameProvider greenPassNameProvider) {
+        this.dgcDecoder = new DefaultDGCDecoder(new DefaultDGCSignatureVerifier(), greenPassCertificateProvider);
+        this.greenPassNameProvider = greenPassNameProvider;
     }
 
     @SneakyThrows
@@ -41,6 +42,9 @@ public class GreenPassRepository {
 
         var greenCertificate = dgcDecoder.decode(extractedPayload);
 
+        var greenCertificateId = greenCertificate.getV().get(0).getCi();
+        var greenCertificateNiceId = greenCertificateId.replaceAll("(\\:|\\#|\\/)", "");
+
         return GreenPass.builder()
                 .dataPayload(extractedPayload)
                 .firstName(greenCertificate.getNam().getGn())
@@ -49,9 +53,9 @@ public class GreenPassRepository {
                 .dosesNeeded(greenCertificate.getV().get(0).getSd().toString())
                 .dosesGiven(greenCertificate.getV().get(0).getDn().toString())
                 .dateOfPass(greenCertificate.getV().get(0).getDt().toString())
-//                .vaccineType(greenCertificate.getV().get(0).getMp())
-                .vaccineType("Comirnaty")
-                .dataId(greenCertificate.getV().get(0).getCi())
+                .vaccineType(greenPassNameProvider.getNameForVaccine(greenCertificate.getV().get(0).getMp()))
+                .dataId(greenCertificateId)
+                .dataNiceId(greenCertificateNiceId)
                 .build();
     }
 

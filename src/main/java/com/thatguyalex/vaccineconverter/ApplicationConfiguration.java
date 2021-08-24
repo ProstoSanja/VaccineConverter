@@ -1,10 +1,12 @@
 package com.thatguyalex.vaccineconverter;
 
 import com.thatguyalex.vaccineconverter.aplication.ProcessRawPass;
+import com.thatguyalex.vaccineconverter.infrasctructure.apple.ApplePassProvider;
 import com.thatguyalex.vaccineconverter.infrasctructure.google.auth.GoogleAuth;
 import com.thatguyalex.vaccineconverter.infrasctructure.google.passes.GooglePassesClient;
 import com.thatguyalex.vaccineconverter.infrasctructure.google.passes.GoogleLoyaltyRepository;
 import com.thatguyalex.vaccineconverter.infrasctructure.greenpass.GreenPassCertificateProvider;
+import com.thatguyalex.vaccineconverter.infrasctructure.greenpass.GreenPassNameProvider;
 import com.thatguyalex.vaccineconverter.infrasctructure.greenpass.GreenPassRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,19 +33,36 @@ public class ApplicationConfiguration implements WebMvcConfigurer {
 
 
     @Bean
+    ApplePassProvider applePassProvider() {
+        return new ApplePassProvider();
+    }
+
+    @Bean
     GreenPassCertificateProvider greenPassCertificateProvider() {
         return new GreenPassCertificateProvider();
     }
 
     @Bean
-    GreenPassRepository greenPassRepository(GreenPassCertificateProvider greenPassCertificateProvider) {
-        return new GreenPassRepository(greenPassCertificateProvider);
+    GreenPassNameProvider greenPassNameProvider() {
+        return new GreenPassNameProvider();
+    }
+
+    @Bean
+    GreenPassRepository greenPassRepository(
+            GreenPassCertificateProvider greenPassCertificateProvider,
+            GreenPassNameProvider greenPassNameProvider
+    ) {
+        return new GreenPassRepository(greenPassCertificateProvider, greenPassNameProvider);
     }
 
 
     @Bean
-    ProcessRawPass processRawPass(GreenPassRepository greenPassRepository, GoogleLoyaltyRepository googleLoyaltyRepository) {
-        return new ProcessRawPass(greenPassRepository, googleLoyaltyRepository);
+    ProcessRawPass processRawPass(
+        GreenPassRepository greenPassRepository,
+        GoogleLoyaltyRepository googleLoyaltyRepository,
+        ApplePassProvider applePassProvider
+    ) {
+        return new ProcessRawPass(greenPassRepository, googleLoyaltyRepository, applePassProvider);
     }
 
     @Override

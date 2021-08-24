@@ -10,7 +10,7 @@ import lombok.Data;
 public class GreenPass {
 
     private String dataPayload;
-    private String dataId;
+    private String dataId, dataNiceId;
     private String firstName, lastName;
     private String dosesNeeded, dosesGiven;
     private String dateOfBirth, dateOfPass;

@@ -20,7 +20,7 @@ public class GoogleLoyaltyRepository implements IntegratedPassProvider {
 
     @Override
     public void generatePassLink(GreenPass greenPass) {
-        var googlePayId = createLoyaltyObject("1", greenPass);
+        var googlePayId = createLoyaltyObject(greenPass);
 
         greenPass.setGooglePayLink("https://pay.google.com/gp/v/save/" + generateJwt(googlePayId));
     }
@@ -67,9 +67,9 @@ public class GoogleLoyaltyRepository implements IntegratedPassProvider {
     }
 
     @SneakyThrows
-    private String createLoyaltyObject(String id, GreenPass greenPass) {
+    private String createLoyaltyObject(GreenPass greenPass) {
         var loyaltyObject = new LoyaltyObject();
-        var objectId = GOOGLE_MERCHANT_CLASS_ID + id;
+        var objectId = GOOGLE_MERCHANT_CLASS_ID + greenPass.getDataNiceId();
 
         loyaltyObject
                 .setId(objectId)
@@ -85,11 +85,18 @@ public class GoogleLoyaltyRepository implements IntegratedPassProvider {
                         new TextModuleData().setId("dob").setHeader("Date of Birth").setBody(greenPass.getDateOfBirth()),
                         new TextModuleData().setId("vaxType").setHeader("Vaccine name").setBody(greenPass.getVaccineType()),
                         new TextModuleData().setId("vaxDoses").setHeader("Doses given").setBody(greenPass.getDosesGiven() + "/" + greenPass.getDosesNeeded()),
-                        new TextModuleData().setId("dov").setHeader("Date of Vaccination").setBody(greenPass.getDateOfPass())
+                        new TextModuleData().setId("dov").setHeader("Date of vaccination").setBody(greenPass.getDateOfPass())
                 ));
 
-        return client.getClient().loyaltyobject().update(objectId, loyaltyObject).execute().getId();
-//        return client.getClient().loyaltyobject().insert(loyaltyObject).execute().getId();
+        try {
+            return client.getClient().loyaltyobject().insert(loyaltyObject).execute().getId();
+        } catch (Exception e) {
+            try {
+                return client.getClient().loyaltyobject().update(objectId, loyaltyObject).execute().getId();
+            } catch (Exception ee) {
+                throw new RuntimeException("Failed to insert and update pass", e);
+            }
+        }
     }
 
 

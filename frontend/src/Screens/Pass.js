@@ -1,6 +1,6 @@
 import './Pass.scss';
 import {Component} from "react";
-import {Button, Col, Radio, Row, Card} from 'antd';
+import {Button, Col, Row, Card, Alert} from 'antd';
 import { DownloadOutlined } from '@ant-design/icons';
 
 class Pass extends Component {
@@ -20,23 +20,27 @@ class Pass extends Component {
                             >
                                 <Row>
                                     <Col span={12}>
-                                        <b>Nimi:</b>
-                                        <p>Aleksandr Tsernoh</p>
+                                        <b>NIMI</b>
+                                        <p>{greenPass.firstName + " " + greenPass.lastName}</p>
                                     </Col>
                                     <Col span={12}>
-                                        <b className="txtR">Kuupaev:</b>
-                                        <p className="txtR">2021-04-30</p>
+                                        <b className="txtR">SUNNIPAEV</b>
+                                        <p className="txtR">{greenPass.dateOfBirth}</p>
                                     </Col>
-                                    <Col span={12}>
-                                        <b>Vaktsiin:</b>
-                                        <p>Comirnaty</p>
+                                    <Col span={8}>
+                                        <b>VAKTSIIN</b>
+                                        <p>{greenPass.vaccineType}</p>
                                     </Col>
-                                    <Col span={12}>
-                                        <b className="txtR">Doose:</b>
-                                        <p className="txtR">2/2</p>
+                                    <Col span={8}>
+                                        <b className="txtM">DOOSI</b>
+                                        <p className="txtM">{greenPass.dosesAdministered}</p>
+                                    </Col>
+                                    <Col span={8}>
+                                        <b className="txtR">KUUPAEV</b>
+                                        <p className="txtR">{greenPass.dateOfPass}</p>
                                     </Col>
                                     <Col span={24}>
-                                        <p className="footer">Kehtib Eestis ja teistes Euroopa riikides!</p>
+                                        <Alert message="Kehtib Eestis ja teistes Euroopa riikides!" type="success" showIcon/>
                                     </Col>
                                 </Row>
                             </Card>
@@ -44,10 +48,10 @@ class Pass extends Component {
                     </Col>
                     <Col md={12} sm={24}>
                         <div className="column-content save-buttons">
-                            <Button type="primary" shape="round" icon={<DownloadOutlined />} size={"large"}>
+                            <Button type="primary" shape="round" icon={<DownloadOutlined />} size={"large"} href={greenPass.googlePayLink}>
                                 Save to Google pay
                             </Button>
-                            <Button type="primary" shape="round" icon={<DownloadOutlined />} size={"large"}>
+                            <Button type="primary" shape="round" icon={<DownloadOutlined />} size={"large"} href={greenPass.applePayLink}>
                                 Save to Apple pay
                             </Button>
                         </div>

@@ -1,7 +1,7 @@
 import './Header.scss';
 import { Row, Col, Typography } from 'antd';
 
-const { Title, Paragraph, Text, Link } = Typography;
+const { Title, Text } = Typography;
 
 function Header() {
     return (

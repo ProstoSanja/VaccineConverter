@@ -38,6 +38,8 @@ dependencies {
     implementation 'se.digg.dgc:dgc-create-validate:1.0.1'
     implementation 'se.digg.dgc:dgc-schema:1.0.1'
 
+    implementation 'de.brendamour:jpasskit:0.2.0'
+
     implementation 'org.springframework.boot:spring-boot-starter-actuator:2.5.3'
 //    implementation 'org.springframework.boot:spring-boot-starter-jdbc:2.5.3'
     implementation 'org.springframework.boot:spring-boot-starter-web:2.5.3'
