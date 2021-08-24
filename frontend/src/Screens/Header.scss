@@ -1,9 +1,14 @@
 .App-Header {
     display: flex;
 
+    .ant-col {
+        display: flex;
+    }
+
     .column-content {
         text-align: start;
         padding: calc(10px + 4vmin);
+        flex-grow: 1;
 
         h1 {
             font-size: calc(10px + 4vmin);
@@ -15,6 +20,14 @@
 
         li {
             font-size: calc(10px + 1vmin);
+        }
+
+        &.img {
+            content: "";
+            flex-grow: 1;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
         }
 
     }

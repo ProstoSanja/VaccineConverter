@@ -63,7 +63,7 @@ public class ApplePassProvider {
                                 .passType(PKPassType.PKGenericPass)
                                 .primaryFieldBuilder(PKField.builder()
                                         .key("title")
-                                        .value("European Health Certificate")
+                                        .value("COVID-19 Vaccination")
                                 )
                                 .secondaryFields(
                                         List.of(

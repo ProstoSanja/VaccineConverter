@@ -44,15 +44,29 @@ class Footer extends Component {
     }
 
     uploadToServer = (file) => {
+        this.props.setStatus("loading", null);
         let formData = new FormData();
 
         formData.append("file", file);
-        fetch('/process', {method: "POST", body: formData})
-            .then(response => response.json())
+        fetch('http://localhost:12345/process', {method: "POST", body: formData})
+            .then(response => {
+                if (response.status === 200) {
+                    return response.json()
+                } else if (response.status === 500) {
+                    return response.json()
+                }
+                throw response;
+            })
             .then((result) => {
+                if (result.message) {
+                    this.props.setStatus("default", result.message);
+                    return;
+                }
                 this.props.setPassCallback(result);
             })
-            .catch(error => console.error(error));
+            .catch(error => {
+                this.props.setStatus("default", error);
+            });
     }
 
     render() {
