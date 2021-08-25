@@ -26,7 +26,7 @@ class Header extends Component {
         e.stopPropagation();
         e.preventDefault();
         if (e.dataTransfer?.items?.length !== 1) {
-            alert("Multiple files uploaded");
+            this.props.setStatus("default", "Could not find covid pass file");
             return;
         }
         var file = e.dataTransfer.items[0].getAsFile();
@@ -39,7 +39,8 @@ class Header extends Component {
 
     onFileSelected = (e) => {
         if (e.target?.files?.length !== 1) {
-            alert("Multiple files uploaded");
+            this.props.setStatus("default", "Could not find covid pass file");
+            this.myRef.current.value = "";
             return;
         }
         this.uploadToServer(e.target.files[0]);
@@ -57,9 +58,10 @@ class Header extends Component {
                 } else if (response.status === 500) {
                     return response.json()
                 }
-                throw response;
+                throw new Error("Received broken response");
             })
             .then((result) => {
+                this.myRef.current.value = "";
                 if (result.message) {
                     this.props.setStatus("default", result.message);
                     return;
@@ -67,6 +69,7 @@ class Header extends Component {
                 this.props.setPassCallback(result);
             })
             .catch(error => {
+                this.myRef.current.value = "";
                 this.props.setStatus("default", error.message);
             });
     }
@@ -80,7 +83,7 @@ class Header extends Component {
                             <Title>Laadi oma COVID-19 pass enda telefoni</Title>
                             <Text>Kanna pass enda telefonis ja säästa aega proovides seda leida, avada ja näidata nii et
                                 teised seda ka näeksid!</Text>
-                            <br/><br/>
+                            <br/>
                             <Text strong>Lubatud dokumendid:</Text>
                             <ul>
                                 <li>Eesti COVID-19 Vaktsineerimispass</li>
@@ -91,6 +94,12 @@ class Header extends Component {
                                 <li>Eesti COVID-19 Läbipõdemistõend</li>
                                 <li>Norra COVID-19 Vaktsineerimispass</li>
                             </ul>
+                            <div className="fg"/>
+                            <Text type="secondary" className="footText">
+                                vaccineconverter.eu ei salvesta töödeldud andmed.<br/>
+                                Veebilehe autor on <a href="https://github.com/ProstoSanja">Aleksandr Tsernoh</a>.
+                            </Text>
+                            {/*<p className="footText">vaccineconverter.eu ei salvesta töödeltatud andmed. Veebilehe autor on Aleksandr Tsernoh.</p>*/}
                         </div>
                     </Col>
                     <Col md={12} span={24}>

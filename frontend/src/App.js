@@ -34,7 +34,7 @@ class App extends Component {
                 <Modal title="Töötleme teie passi..." visible={status==="loading"} footer={[]} closable={false}>
                     <Spin />
                 </Modal>
-                <Modal title="Tekkis viga" visible={error != null} footer={[
+                <Modal title="Tekkis viga" visible={error != null} closable={false} footer={[
                     <Button key="back" onClick={() => {this.setState({error: null})}}>
                         Tagasi
                     </Button>

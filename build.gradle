@@ -21,6 +21,8 @@ repositories {
 dependencies {
     implementation 'org.apache.pdfbox:pdfbox:2.0.24'
 
+    implementation 'io.sentry:sentry-spring-boot-starter:5.1.1'
+
     implementation 'com.google.zxing:core:3.4.1'
     implementation 'com.google.zxing:javase:3.4.1'
 
