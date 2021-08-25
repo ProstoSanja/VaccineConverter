@@ -1,9 +1,8 @@
 .App-Pass {
-  display: flex;
-  flex-direction: column;
+  min-height: 100vh;
 
-  .ant-row {
-    flex-grow: 1;
+  >.ant-row {
+    min-height: 100vh;
   }
 
   //.ant-col {
@@ -30,11 +29,35 @@
   }
 
   .save-buttons {
-    display: flex;
-    flex-direction: column;
 
-    .ant-btn {
-      margin: 20px;
+    .payBut {
+      margin: 40px auto;
+      height: 40px;
+      width: 300px;
+      display: block;
+      transition: background-color 250ms;
+      content: " ";
+      background-repeat: no-repeat;
+      background-position: center;
+      border-radius: 8px;
+
+      &.gPay {
+        background-size: 180px;
+        border: 1px solid #eee;
+        background-color: white;
+        &:hover {
+          background-color: #eee;
+        }
+      }
+      &.aPay {
+        background-size: 160px;
+        border: 1px solid #222;
+        background-color: black;
+        &:hover {
+          background-color: #222;
+        }
+      }
+
     }
 
   }

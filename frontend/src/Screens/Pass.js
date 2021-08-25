@@ -12,7 +12,7 @@ class Pass extends Component {
                     <Col className="header" span={24}>
                         <h1>Nii lihtne see ongi!</h1>
                     </Col>
-                    <Col md={12} sm={24}>
+                    <Col md={12} span={24}>
                         <div className="column-content">
                             <Card
                                 hoverable
@@ -46,14 +46,14 @@ class Pass extends Component {
                             </Card>
                         </div>
                     </Col>
-                    <Col md={12} sm={24}>
+                    <Col md={12} span={24}>
                         <div className="column-content save-buttons">
-                            <Button type="primary" shape="round" icon={<DownloadOutlined />} size={"large"} href={greenPass.googlePayLink}>
-                                Save to Google pay
-                            </Button>
-                            <Button type="primary" shape="round" icon={<DownloadOutlined />} size={"large"} href={greenPass.applePayLink}>
-                                Save to Apple pay
-                            </Button>
+                            <a style={{backgroundImage:'url("save_to_phone.svg")'}} className='payBut gPay' href={greenPass.googlePayLink} target={"_blank"}>
+
+                            </a>
+                            <a style={{backgroundImage:'url("save_to_apple.svg")'}} className='payBut aPay' href={greenPass.googlePayLink} target={"_blank"}>
+
+                            </a>
                         </div>
                     </Col>
                 </Row>

@@ -1,7 +1,6 @@
 import './App.scss';
 import {Component} from "react";
 import Header from "./Screens/Header";
-import Footer from "./Screens/Footer";
 import Pass from "./Screens/Pass";
 import { Modal, Button, Spin } from 'antd';
 
@@ -31,9 +30,7 @@ class App extends Component {
         const {greenPass, status, error} = this.state;
         return (
             <div className="App">
-                {greenPass ? null : <Header setPassCallback={this.setPassCallback} setStatus={this.setStatus}/>}
-                {/*{greenPass ? null : <Footer setPassCallback={this.setPassCallback} setStatus={this.setStatus}/>}*/}
-                {greenPass ? <Pass greenPass={greenPass}/> : null}
+                {greenPass ? <Pass greenPass={greenPass}/> : <Header setPassCallback={this.setPassCallback} setStatus={this.setStatus}/>}
                 <Modal title="Töötleme teie passi..." visible={status==="loading"} footer={[]} closable={false}>
                     <Spin />
                 </Modal>
