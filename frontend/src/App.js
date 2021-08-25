@@ -31,8 +31,8 @@ class App extends Component {
         const {greenPass, status, error} = this.state;
         return (
             <div className="App">
-                {greenPass ? null : <Header/>}
-                {greenPass ? null : <Footer setPassCallback={this.setPassCallback} setStatus={this.setStatus}/>}
+                {greenPass ? null : <Header setPassCallback={this.setPassCallback} setStatus={this.setStatus}/>}
+                {/*{greenPass ? null : <Footer setPassCallback={this.setPassCallback} setStatus={this.setStatus}/>}*/}
                 {greenPass ? <Pass greenPass={greenPass}/> : null}
                 <Modal title="Töötleme teie passi..." visible={status==="loading"} footer={[]} closable={false}>
                     <Spin />

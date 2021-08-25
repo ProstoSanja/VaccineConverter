@@ -2,20 +2,9 @@
   text-align: center;
   background-color: #eeeeee;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
 }
-
-.App-Header {
-  background-color: #eeeeee;
-  color: black;
-  flex-grow: 1;
-}
-
 
 .App-Footer {
   background-color: #003399;
@@ -36,4 +25,8 @@
 }
 .txtM {
   text-align: center;
+}
+
+.fg {
+  flex-grow: 1;
 }

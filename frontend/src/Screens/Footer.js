@@ -1,6 +1,6 @@
 import './Footer.scss';
 import {Button} from "antd";
-import {CopyOutlined, ArrowRightOutlined} from '@ant-design/icons';
+import {QrcodeOutlined, ArrowRightOutlined} from '@ant-design/icons';
 import React, {Component} from "react";
 
 class Footer extends Component {
@@ -75,7 +75,7 @@ class Footer extends Component {
                  onDragEnter={this.onDragEnter}
                  onDragOver={this.onDragOver}
                  onDrop={this.onFileDrop}>
-                    <p className="footerContent"><CopyOutlined /> Lohistage ome toendit, voi...</p>
+                    <p className="footerContent"><QrcodeOutlined /> Tehke valmis oma PDF tõend ja valige...</p>
                     <div className="footerContent">
                         <input type="file" accept="application/pdf" style={{display: "none"}} ref={this.myRef} onChange={this.onFileSelected}/>
                         <Button type="primary" shape="round" size={"large"} onClick={this.onUploadFileClick} >
