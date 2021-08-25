@@ -11,7 +11,7 @@ public class InternalController {
     @Autowired
     GoogleLoyaltyRepository googleLoyaltyRepository;
 
-    @GetMapping("/test")
+    @GetMapping("/test/abrakadabraAlex1230987654")
     public void test() {
         googleLoyaltyRepository.updateLoyaltyClass();
     }

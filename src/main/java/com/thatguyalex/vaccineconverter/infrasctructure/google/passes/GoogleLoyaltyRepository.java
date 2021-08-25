@@ -36,15 +36,15 @@ public class GoogleLoyaltyRepository implements IntegratedPassProvider {
                 .setProgramName("COVID-19 Vaccination")
                 .setHexBackgroundColor("#FFFFFF")
                 .setProgramLogo(new Image().setSourceUri(new ImageUri().setUri("https://upload.wikimedia.org/wikipedia/en/2/27/EU_flag_square.PNG")))
-                .setReviewStatus("underReview")
-                .setTextModulesData(List.of(
-                        new TextModuleData().setId("firstName").setHeader("Given name"),
-                        new TextModuleData().setId("lastName").setHeader("Family name"),
-                        new TextModuleData().setId("dob").setHeader("Date of Birth"),
-                        new TextModuleData().setId("vaxType").setHeader("Vaccine name"),
-                        new TextModuleData().setId("vaxDoses").setHeader("Doses given"),
-                        new TextModuleData().setId("dov").setHeader("Date of Vaccination")
-                ));
+                .setReviewStatus("underReview");
+//                .setTextModulesData(List.of(
+//                        new TextModuleData().setId("firstName").setHeader("Given name"),
+//                        new TextModuleData().setId("lastName").setHeader("Family name"),
+//                        new TextModuleData().setId("dob").setHeader("Date of Birth"),
+//                        new TextModuleData().setId("vaxType").setHeader("Vaccine name"),
+//                        new TextModuleData().setId("vaxDoses").setHeader("Doses given"),
+//                        new TextModuleData().setId("dov").setHeader("Date of Vaccination")
+//                ));
 
         loyaltyClass.setClassTemplateInfo(
                 new ClassTemplateInfo().setCardTemplateOverride(
