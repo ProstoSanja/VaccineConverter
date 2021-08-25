@@ -1,6 +1,6 @@
 import './Header.scss';
 import {Row, Col, Typography, Button} from 'antd';
-import {ArrowRightOutlined, QrcodeOutlined} from "@ant-design/icons";
+import {ArrowRightOutlined} from "@ant-design/icons";
 import React, {Component} from "react";
 
 const { Title, Text } = Typography;
@@ -50,7 +50,7 @@ class Header extends Component {
         let formData = new FormData();
 
         formData.append("file", file);
-        fetch('http://localhost:12345/process', {method: "POST", body: formData})
+        fetch('/process', {method: "POST", body: formData})
             .then(response => {
                 if (response.status === 200) {
                     return response.json()

@@ -1,7 +1,9 @@
 import './Pass.scss';
 import {Component} from "react";
-import {Button, Col, Row, Card, Alert} from 'antd';
-import { DownloadOutlined } from '@ant-design/icons';
+import {Col, Row, Card, Alert, Typography} from 'antd';
+import {QrcodeOutlined} from "@ant-design/icons";
+
+const { Title } = Typography;
 
 class Pass extends Component {
     render() {
@@ -10,7 +12,7 @@ class Pass extends Component {
             <div className="App-Pass">
                 <Row>
                     <Col className="header" span={24}>
-                        <h1>Nii lihtne see ongi!</h1>
+                        <Title><QrcodeOutlined/> Pass on valmis!</Title>
                     </Col>
                     <Col md={12} span={24}>
                         <div className="column-content">
@@ -48,10 +50,10 @@ class Pass extends Component {
                     </Col>
                     <Col md={12} span={24}>
                         <div className="column-content save-buttons">
-                            <a style={{backgroundImage:'url("save_to_phone.svg")'}} className='payBut gPay' href={greenPass.googlePayLink} target={"_blank"}>
+                            <a style={{backgroundImage:'url("save_to_phone.svg")'}} className='payBut gPay' href={greenPass.googlePayLink} target={"_blank"} rel="noreferrer" >
 
                             </a>
-                            <a style={{backgroundImage:'url("save_to_apple.svg")'}} className='payBut aPay' href={greenPass.googlePayLink} target={"_blank"}>
+                            <a style={{backgroundImage:'url("save_to_apple.svg")'}} className='payBut aPay' href={greenPass.applePayLink} target={"_blank"} rel="noreferrer" >
 
                             </a>
                         </div>

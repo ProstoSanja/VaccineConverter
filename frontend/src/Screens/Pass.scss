@@ -5,12 +5,10 @@
     min-height: 100vh;
   }
 
-  //.ant-col {
-  //  display: flex;
-  //}
-
   h1 {
     color: white;
+    font-size: calc(10px + 4vmin);
+    margin-top: 20px;
   }
 
   .header {
@@ -19,7 +17,7 @@
 
   .ant-card-body {
     text-align: start;
-    p, b { //, .ant-col {
+    p, b {
       display: block;
     }
 
@@ -30,8 +28,15 @@
 
   .save-buttons {
 
+
+    @media (min-width: 768px) {
+      .payBut {
+        margin: 40px auto !important;
+      }
+    }
+
     .payBut {
-      margin: 40px auto;
+      margin: 20px auto;
       height: 40px;
       width: 300px;
       display: block;

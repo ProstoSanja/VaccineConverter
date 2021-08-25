@@ -10,11 +10,12 @@ import com.thatguyalex.vaccineconverter.infrasctructure.greenpass.GreenPassNameP
 import com.thatguyalex.vaccineconverter.infrasctructure.greenpass.GreenPassRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class ApplicationConfiguration implements WebMvcConfigurer {
+public class ApplicationConfiguration {
 
     @Bean
     GoogleAuth googleAuth() {
@@ -65,9 +66,15 @@ public class ApplicationConfiguration implements WebMvcConfigurer {
         return new ProcessRawPass(greenPassRepository, googleLoyaltyRepository, applePassProvider);
     }
 
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowedMethods("*");
+    @Profile("development")
+    @Configuration
+    class DevelopmentApplicationConfiguration implements WebMvcConfigurer {
+        @Profile("development")
+        @Override
+        public void addCorsMappings(CorsRegistry registry) {
+            registry.addMapping("/**").allowedMethods("*");
+        }
     }
+
 
 }
