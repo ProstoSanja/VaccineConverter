@@ -8,7 +8,6 @@ import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.QRCodeReader;
 import com.thatguyalex.vaccineconverter.domain.model.GreenPass;
-import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -21,6 +20,7 @@ import se.digg.dgc.service.DGCDecoder;
 import se.digg.dgc.service.impl.DefaultDGCDecoder;
 import se.digg.dgc.signatures.impl.DefaultDGCSignatureVerifier;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,10 +35,18 @@ public class GreenPassRepository {
         this.greenPassNameProvider = greenPassNameProvider;
     }
 
+    public GreenPass parseGreenPassFromPdf(MultipartFile file) {
+        return parseGreenPass(extractImageFromPdf(file));
+    }
+
     @SneakyThrows
-    public GreenPass parseGreenPass(MultipartFile file) {
-        var extractedImage = extractImageFromPdf(file);
-        var extractedPayload = decodeQr(extractedImage);
+    public GreenPass parseGreenPassFromImage(MultipartFile file) {
+        return parseGreenPass(ImageIO.read(file.getInputStream()));
+    }
+
+    @SneakyThrows
+    private GreenPass parseGreenPass(BufferedImage image) {
+        var extractedPayload = decodeQr(image);
 
         var greenCertificate = dgcDecoder.decode(extractedPayload);
 

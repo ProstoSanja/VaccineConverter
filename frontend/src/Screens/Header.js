@@ -99,13 +99,12 @@ class Header extends Component {
                                 vaccineconverter.eu ei salvesta töödeldud andmed.<br/>
                                 Veebilehe autor on <a href="https://github.com/ProstoSanja">Aleksandr Tsernoh</a>.
                             </Text>
-                            {/*<p className="footText">vaccineconverter.eu ei salvesta töödeltatud andmed. Veebilehe autor on Aleksandr Tsernoh.</p>*/}
                         </div>
                     </Col>
                     <Col md={12} span={24}>
                         <div className="column-content col2">
                             <div className="buttonHolder">
-                                <input type="file" accept="application/pdf" style={{display: "none"}} ref={this.myRef} onChange={this.onFileSelected}/>
+                                <input type="file" accept="application/pdf, image/png, image/jpeg" style={{display: "none"}} ref={this.myRef} onChange={this.onFileSelected}/>
                                 <Button type="primary" shape="round" size={"large"}
                                         onDragEnter={this.onDragEnter}
                                         onDragOver={this.onDragOver}

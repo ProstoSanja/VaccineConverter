@@ -20,7 +20,15 @@ public class SomeController {
 
     @PostMapping("/process")
     public ResponseEntity<ProcessGreenPassResponse> processGreenPass(@NonNull @RequestBody MultipartFile file) {
-        return ResponseEntity.ok(GreenPassToResponseConverter.fromGreenPass(processRawPass.convertPdf(file)));
+        if (file.getContentType() == null) {
+            throw new RuntimeException("COuld not process the file in the request");
+        }
+        return ResponseEntity.ok(GreenPassToResponseConverter.fromGreenPass(
+                switch (file.getContentType()) {
+                    case "application/pdf" -> processRawPass.convertPdf(file);
+                    case "image/png", "image/jpeg" -> processRawPass.convertImage(file);
+                    default -> throw new RuntimeException("Unsupported file detected: " + file.getContentType());
+                }));
     }
 
     @GetMapping("/apple/{id}")

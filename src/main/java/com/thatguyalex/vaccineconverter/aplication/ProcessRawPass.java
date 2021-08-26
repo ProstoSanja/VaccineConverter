@@ -15,10 +15,20 @@ public class ProcessRawPass {
     private ApplePassProvider applePassProvider;
 
     public GreenPass convertPdf(MultipartFile file) {
-        var greenPass = greenpassRepository.parseGreenPass(file);
+        var greenPass = greenpassRepository.parseGreenPassFromPdf(file);
+        generatePasses(greenPass);
+        return greenPass;
+    }
+
+    public GreenPass convertImage(MultipartFile file) {
+        var greenPass = greenpassRepository.parseGreenPassFromImage(file);
+        generatePasses(greenPass);
+        return greenPass;
+    }
+
+    private void generatePasses(GreenPass greenPass) {
         applePassProvider.generateApplePass(greenPass);
         googleLoyaltyRepository.generatePassLink(greenPass);
-        return greenPass;
     }
 
     public byte[] getApplePass(String id) {

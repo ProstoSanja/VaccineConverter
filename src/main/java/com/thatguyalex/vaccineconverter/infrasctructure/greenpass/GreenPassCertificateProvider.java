@@ -18,7 +18,7 @@ public class GreenPassCertificateProvider implements CertificateProvider {
     private List<GreenPassCert> certs;
     private CertificateFactory cf;
 
-    private Pattern countryPattern = Pattern.compile("C=(.*?),");
+    private Pattern countryPattern = Pattern.compile("C=(.*?)(,|$)");
 
     @SneakyThrows
     public GreenPassCertificateProvider() {
