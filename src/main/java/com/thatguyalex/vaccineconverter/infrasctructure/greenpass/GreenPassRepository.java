@@ -2,6 +2,7 @@ package com.thatguyalex.vaccineconverter.infrasctructure.greenpass;
 
 
 import com.google.zxing.BinaryBitmap;
+import com.google.zxing.DecodeHintType;
 import com.google.zxing.LuminanceSource;
 import com.google.zxing.Result;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
@@ -24,6 +25,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class GreenPassRepository {
 
@@ -36,12 +38,12 @@ public class GreenPassRepository {
     }
 
     public GreenPass parseGreenPassFromPdf(MultipartFile file) {
-        return parseGreenPass(decodeQr(extractImageFromPdf(file)));
+        return parseGreenPass(decodeQr(extractImageFromPdf(file), true));
     }
 
     @SneakyThrows
     public GreenPass parseGreenPassFromImage(MultipartFile file) {
-        return parseGreenPass(decodeQr(ImageIO.read(file.getInputStream())));
+        return parseGreenPass(decodeQr(ImageIO.read(file.getInputStream()), false));
     }
 
     @SneakyThrows
@@ -65,13 +67,18 @@ public class GreenPassRepository {
                 .build();
     }
 
-    private String decodeQr(BufferedImage image) {
+    private String decodeQr(BufferedImage image, boolean pureBarcode) {
         LuminanceSource source = new BufferedImageLuminanceSource(image);
         BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
 
         try {
-            Result result = new QRCodeReader().decode(bitmap);
-            return result.getText();
+            if (pureBarcode) {
+                Result result = new QRCodeReader().decode(bitmap, Map.of(DecodeHintType.TRY_HARDER, Boolean.TRUE, DecodeHintType.PURE_BARCODE, Boolean.TRUE));
+                return result.getText();
+            } else {
+                Result result = new QRCodeReader().decode(bitmap, Map.of(DecodeHintType.TRY_HARDER, Boolean.TRUE));
+                return result.getText();
+            }
         } catch (Exception e) {
             throw new RuntimeException("Failed to parse QR");
         }
