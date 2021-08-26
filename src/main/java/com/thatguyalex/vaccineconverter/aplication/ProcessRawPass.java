@@ -26,6 +26,12 @@ public class ProcessRawPass {
         return greenPass;
     }
 
+    public GreenPass convertRaw(String rawData) {
+        var greenPass = greenpassRepository.parseGreenPass(rawData);
+        generatePasses(greenPass);
+        return greenPass;
+    }
+
     private void generatePasses(GreenPass greenPass) {
         applePassProvider.generateApplePass(greenPass);
         googleLoyaltyRepository.generatePassLink(greenPass);

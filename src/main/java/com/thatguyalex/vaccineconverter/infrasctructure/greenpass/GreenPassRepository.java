@@ -36,25 +36,23 @@ public class GreenPassRepository {
     }
 
     public GreenPass parseGreenPassFromPdf(MultipartFile file) {
-        return parseGreenPass(extractImageFromPdf(file));
+        return parseGreenPass(decodeQr(extractImageFromPdf(file)));
     }
 
     @SneakyThrows
     public GreenPass parseGreenPassFromImage(MultipartFile file) {
-        return parseGreenPass(ImageIO.read(file.getInputStream()));
+        return parseGreenPass(decodeQr(ImageIO.read(file.getInputStream())));
     }
 
     @SneakyThrows
-    private GreenPass parseGreenPass(BufferedImage image) {
-        var extractedPayload = decodeQr(image);
-
-        var greenCertificate = dgcDecoder.decode(extractedPayload);
+    public GreenPass parseGreenPass(String data) {
+        var greenCertificate = dgcDecoder.decode(data);
 
         var greenCertificateId = greenCertificate.getV().get(0).getCi();
         var greenCertificateNiceId = greenCertificateId.replaceAll("(\\:|\\#|\\/)", "");
 
         return GreenPass.builder()
-                .dataPayload(extractedPayload)
+                .dataPayload(data)
                 .firstName(greenCertificate.getNam().getGn())
                 .lastName(greenCertificate.getNam().getFn())
                 .dateOfBirth(greenCertificate.getDob())
