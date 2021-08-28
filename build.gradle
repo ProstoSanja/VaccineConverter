@@ -16,6 +16,7 @@ configurations {
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
 dependencies {
@@ -37,8 +38,9 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2', 'io.jsonwebtoken:jjwt-gson:0.11.2'
 
-    implementation 'se.digg.dgc:dgc-create-validate:1.0.1'
-    implementation 'se.digg.dgc:dgc-schema:1.0.1'
+    // https://github.com/ProstoSanja/dgc-java
+    implementation 'se.digg.dgc:dgc-create-validate:1.0.3-PUBCERT'
+    implementation 'se.digg.dgc:dgc-schema:1.0.3-PUBCERT'
 
     implementation 'de.brendamour:jpasskit:0.2.0'
 

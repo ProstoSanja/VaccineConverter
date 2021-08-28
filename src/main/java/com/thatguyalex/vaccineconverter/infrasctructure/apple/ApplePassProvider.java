@@ -116,7 +116,7 @@ public class ApplePassProvider {
                 .serialNumber(greenPass.getDataNiceId())
                 .teamIdentifier("8275GSHA89")
                 .organizationName("Aleksandr Tsernoh")
-                .logoText("Estonian Health information system")
+                .logoText(greenPass.getIssuer())
                 .description("European Vaccine certificate")
                 .backgroundColor(Color.WHITE)
                 .foregroundColor(Color.BLACK)

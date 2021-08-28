@@ -6,6 +6,7 @@ import com.thatguyalex.vaccineconverter.infrasctructure.google.auth.GoogleAuth;
 import com.thatguyalex.vaccineconverter.infrasctructure.google.passes.GooglePassesClient;
 import com.thatguyalex.vaccineconverter.infrasctructure.google.passes.GoogleLoyaltyRepository;
 import com.thatguyalex.vaccineconverter.infrasctructure.greenpass.GreenPassCertificateProvider;
+import com.thatguyalex.vaccineconverter.infrasctructure.greenpass.GreenPassIssuerProvider;
 import com.thatguyalex.vaccineconverter.infrasctructure.greenpass.GreenPassNameProvider;
 import com.thatguyalex.vaccineconverter.infrasctructure.greenpass.GreenPassRepository;
 import org.springframework.context.annotation.Bean;
@@ -49,11 +50,17 @@ public class ApplicationConfiguration {
     }
 
     @Bean
+    GreenPassIssuerProvider greenPassIssuerProvider() {
+        return new GreenPassIssuerProvider();
+    }
+
+    @Bean
     GreenPassRepository greenPassRepository(
             GreenPassCertificateProvider greenPassCertificateProvider,
-            GreenPassNameProvider greenPassNameProvider
+            GreenPassNameProvider greenPassNameProvider,
+            GreenPassIssuerProvider greenPassIssuerProvider
     ) {
-        return new GreenPassRepository(greenPassCertificateProvider, greenPassNameProvider);
+        return new GreenPassRepository(greenPassCertificateProvider, greenPassNameProvider, greenPassIssuerProvider);
     }
 
 

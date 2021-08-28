@@ -14,37 +14,31 @@ import java.util.Map;
 public class GoogleLoyaltyRepository implements IntegratedPassProvider {
 
     private static final String GOOGLE_MERCHANT_ID = "3388000000015806310";
-    private static final String GOOGLE_MERCHANT_CLASS_ID = GOOGLE_MERCHANT_ID + ".EstonianVaccination";
 
     private final GooglePassesClient client;
 
     @Override
     public void generatePassLink(GreenPass greenPass) {
-        var googlePayId = createLoyaltyObject(greenPass);
+        var loyaltyClassId = GOOGLE_MERCHANT_ID + "." + greenPass.getNiceIssuer();
+
+        loyaltyClassId = updateLoyaltyClass(loyaltyClassId, greenPass);
+        var googlePayId = createLoyaltyObject(loyaltyClassId, greenPass);
 
         greenPass.setGooglePayLink("https://pay.google.com/gp/v/save/" + generateJwt(googlePayId));
     }
 
     @SneakyThrows
-    public void updateLoyaltyClass() {
+    public String updateLoyaltyClass(String loyaltyClassId, GreenPass greenPass) {
         var loyaltyClass = new LoyaltyClass();
 
         loyaltyClass
-                .setId(GOOGLE_MERCHANT_CLASS_ID)
-                .setIssuerName("Estonian Health Information System")
+                .setId(loyaltyClassId)
+                .setIssuerName(greenPass.getIssuer())
                 .setKind("walletobjects#loyaltyClass")
                 .setProgramName("COVID-19 Vaccination")
                 .setHexBackgroundColor("#FFFFFF")
                 .setProgramLogo(new Image().setSourceUri(new ImageUri().setUri("https://upload.wikimedia.org/wikipedia/en/2/27/EU_flag_square.PNG")))
                 .setReviewStatus("underReview");
-//                .setTextModulesData(List.of(
-//                        new TextModuleData().setId("firstName").setHeader("Given name"),
-//                        new TextModuleData().setId("lastName").setHeader("Family name"),
-//                        new TextModuleData().setId("dob").setHeader("Date of Birth"),
-//                        new TextModuleData().setId("vaxType").setHeader("Vaccine name"),
-//                        new TextModuleData().setId("vaxDoses").setHeader("Doses given"),
-//                        new TextModuleData().setId("dov").setHeader("Date of Vaccination")
-//                ));
 
         loyaltyClass.setClassTemplateInfo(
                 new ClassTemplateInfo().setCardTemplateOverride(
@@ -63,17 +57,25 @@ public class GoogleLoyaltyRepository implements IntegratedPassProvider {
                                         )
                                 ))));
 
-        client.getClient().loyaltyclass().update(GOOGLE_MERCHANT_ID + ".EstonianVaccination", loyaltyClass).execute();
+        try {
+            return client.getClient().loyaltyclass().update(loyaltyClassId, loyaltyClass).execute().getId();
+        } catch (Exception e) {
+            try {
+                return client.getClient().loyaltyclass().insert(loyaltyClass).execute().getId();
+            } catch (Exception ee) {
+                throw new RuntimeException("Failed to insert and update pass", e);
+            }
+        }
     }
 
     @SneakyThrows
-    private String createLoyaltyObject(GreenPass greenPass) {
+    private String createLoyaltyObject(String loyaltyClassId, GreenPass greenPass) {
         var loyaltyObject = new LoyaltyObject();
-        var objectId = GOOGLE_MERCHANT_CLASS_ID + greenPass.getDataNiceId();
+        var objectId = loyaltyClassId + greenPass.getDataNiceId();
 
         loyaltyObject
                 .setId(objectId)
-                .setClassId(GOOGLE_MERCHANT_CLASS_ID)
+                .setClassId(loyaltyClassId)
                 .setState("ACTIVE")
                 .setBarcode(new Barcode()
                         .setType("QR_CODE")

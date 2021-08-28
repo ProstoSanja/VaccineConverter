@@ -17,12 +17,15 @@ import org.apache.pdfbox.pdmodel.PDResources;
 import org.apache.pdfbox.pdmodel.graphics.PDXObject;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.springframework.web.multipart.MultipartFile;
+import se.digg.dgc.payload.v1.DigitalCovidCertificate;
 import se.digg.dgc.service.DGCDecoder;
 import se.digg.dgc.service.impl.DefaultDGCDecoder;
 import se.digg.dgc.signatures.impl.DefaultDGCSignatureVerifier;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.security.SignatureException;
+import java.security.cert.CertificateExpiredException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -31,10 +34,16 @@ public class GreenPassRepository {
 
     private final DGCDecoder dgcDecoder;
     private final GreenPassNameProvider greenPassNameProvider;
+    private final GreenPassIssuerProvider greenPassIssuerProvider;
 
-    public GreenPassRepository(GreenPassCertificateProvider greenPassCertificateProvider, GreenPassNameProvider greenPassNameProvider) {
+    public GreenPassRepository(
+            GreenPassCertificateProvider greenPassCertificateProvider,
+            GreenPassNameProvider greenPassNameProvider,
+            GreenPassIssuerProvider greenPassIssuerProvider
+    ) {
         this.dgcDecoder = new DefaultDGCDecoder(new DefaultDGCSignatureVerifier(), greenPassCertificateProvider);
         this.greenPassNameProvider = greenPassNameProvider;
+        this.greenPassIssuerProvider = greenPassIssuerProvider;
     }
 
     public GreenPass parseGreenPassFromPdf(MultipartFile file) {
@@ -46,15 +55,30 @@ public class GreenPassRepository {
         return parseGreenPass(decodeQr(ImageIO.read(file.getInputStream()), false));
     }
 
-    @SneakyThrows
     public GreenPass parseGreenPass(String data) {
-        var greenCertificate = dgcDecoder.decode(data);
+
+        DigitalCovidCertificate greenCertificate;
+
+        try {
+            greenCertificate = dgcDecoder.decode(data);
+        } catch (CertificateExpiredException e) {
+            throw new RuntimeException("Certificate has expired", e);
+        } catch (SignatureException e) {
+            throw new RuntimeException("Failed to validate signature on current pass", e);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to parse digital green certificate", e);
+        }
 
         var greenCertificateId = greenCertificate.getV().get(0).getCi();
-        var greenCertificateNiceId = greenCertificateId.replaceAll("(\\:|\\#|\\/)", "");
+        var greenCertificateNiceId = greenCertificateId.replaceAll("(\\:|\\#|\\/|\\ )", "");
+
+        var issuerId = greenPassIssuerProvider.getCorrectedIssuerName(greenCertificate.getV().get(0).getIs());
+        var issuerNiceId = issuerId.replaceAll("(\\:|\\#|\\/|\\ )", "");
 
         return GreenPass.builder()
                 .dataPayload(data)
+                .issuer(issuerId)
+                .niceIssuer(issuerNiceId)
                 .firstName(greenCertificate.getNam().getGn())
                 .lastName(greenCertificate.getNam().getFn())
                 .dateOfBirth(greenCertificate.getDob())
