@@ -47,7 +47,18 @@ public class GreenPassRepository {
     }
 
     public GreenPass parseGreenPassFromPdf(MultipartFile file) {
-        return parseGreenPass(decodeQr(extractImageFromPdf(file), true));
+        var images = extractImageFromPdf(file);
+        for (BufferedImage image : images) {
+            try {
+                return parseGreenPass(decodeQr(image, true));
+            } catch (Exception e) {
+                //pls dont look at this, :( , basically separating errors into critical and not critical
+                if (e.getMessage().contains("Certificate has expired") || e.getMessage().contains("Failed to validate signature on current pass")) {
+                    throw e;
+                }
+            }
+        }
+        throw new RuntimeException("Could not find any valid data in PDF");
     }
 
     @SneakyThrows
@@ -109,7 +120,7 @@ public class GreenPassRepository {
     }
 
     @SneakyThrows
-    private BufferedImage extractImageFromPdf(MultipartFile file) {
+    private List<BufferedImage> extractImageFromPdf(MultipartFile file) {
         List<BufferedImage> foundImages = new ArrayList<>();
 
         PDDocument document = PDDocument.load(file.getInputStream());
@@ -124,12 +135,11 @@ public class GreenPassRepository {
         }
         document.close();
 
-        return switch (foundImages.size()) {
-            case 0 -> throw new RuntimeException("No images found");
-            case 1 -> foundImages.get(0);
-            default -> throw new RuntimeException("Wrong file?");
-        };
+        if (foundImages.size() < 1) {
+            throw new RuntimeException("No data found in PDF");
+        }
 
+        return foundImages;
     }
 
 }

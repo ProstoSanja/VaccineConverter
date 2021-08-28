@@ -40,3 +40,4 @@ out/
 /src/main/resources/credentials
 /src/main/resources/static
 /gpay
+.DS_Store
