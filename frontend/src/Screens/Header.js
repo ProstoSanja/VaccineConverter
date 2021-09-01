@@ -82,7 +82,10 @@ class Header extends Component {
                 <Row>
                     <Col md={12} span={24}>
                         <div className="column-content col1">
-                            <Title><FormattedMessage id="header_title" /></Title>
+                            <div className="titleHolder">
+                                <Title><FormattedMessage id="header_title" /></Title>
+                                <LanguageSelector/>
+                            </div>
                             <Text><FormattedMessage id="header_subtitle" /></Text>
                             <br/>
                             <Text strong><FormattedMessage id="allowed_documents" /></Text>

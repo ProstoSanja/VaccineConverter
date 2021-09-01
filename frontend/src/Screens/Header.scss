@@ -8,11 +8,16 @@
             min-height: 100vh;
             padding: calc(10px + 4vmin) !important;
 
+            .titleHolder {
+                .ant-dropdown-trigger {
+                    display: none;
+                }
+            }
+
             .buttonHolder {
-                margin-right: 20px;
-                margin-top: 20px;
+                margin-right: 0;
+                margin-top: 0;
                 margin-bottom: 100px;
-                margin-left: auto;
                 padding: 0 !important;
 
                 .ant-dropdown-trigger {
@@ -24,6 +29,17 @@
                     width: 240px !important;
                 }
 
+            }
+        }
+    }
+
+    @media (min-width: 992px) {
+        .column-content {
+
+            .buttonHolder {
+                margin-right: 20px;
+                margin-top: 20px;
+                padding: 0 !important;
             }
         }
     }
@@ -42,6 +58,18 @@
             display: flex;
             flex-direction: column;
             padding: calc(10px + 4vmin) calc(10px + 4vmin) 0 calc(10px + 4vmin);
+
+            .titleHolder {
+                display: flex;
+                align-items: flex-start;
+                flex-direction: row;
+
+
+                .ant-dropdown-trigger {
+                    min-width: 66px;
+                    min-height: 40px;
+                }
+            }
 
             .footText {
                 margin: 0;
@@ -62,7 +90,11 @@
             padding: 0 calc(10px + 4vmin) calc(10px + 4vmin) calc(10px + 4vmin);
 
             .buttonHolder {
+                display: flex;
                 padding: 20px;
+                flex-direction: row;
+                justify-content: flex-end;
+                align-items: center;
 
                 .ant-dropdown-trigger {
                     display: none;
