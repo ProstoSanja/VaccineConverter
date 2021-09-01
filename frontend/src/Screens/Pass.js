@@ -1,7 +1,8 @@
 import './Pass.scss';
 import {Component} from "react";
-import {Col, Row, Card, Alert, Typography} from 'antd';
+import {Alert, Card, Col, Row, Typography} from 'antd';
 import {QrcodeOutlined} from "@ant-design/icons";
+import {FormattedMessage} from "react-intl";
 
 const { Title } = Typography;
 
@@ -12,37 +13,37 @@ class Pass extends Component {
             <div className="App-Pass">
                 <Row>
                     <Col className="header" span={24}>
-                        <Title><QrcodeOutlined/> Pass on valmis!</Title>
+                        <Title><QrcodeOutlined/> <FormattedMessage id="pass_ready" /></Title>
                     </Col>
                     <Col md={12} span={24}>
                         <div className="column-content">
                             <Card
                                 hoverable
-                                title="COVID-19 Immuniseerimispass"
+                                title={<FormattedMessage id="vaccination_pass" />}
                             >
                                 <Row>
                                     <Col span={12}>
-                                        <b>NIMI</b>
+                                        <b><FormattedMessage id="pass_details_name" /></b>
                                         <p>{greenPass.firstName + " " + greenPass.lastName}</p>
                                     </Col>
                                     <Col span={12}>
-                                        <b className="txtR">SUNNIPAEV</b>
+                                        <b className="txtR"><FormattedMessage id="pass_details_dob" /></b>
                                         <p className="txtR">{greenPass.dateOfBirth}</p>
                                     </Col>
                                     <Col span={8}>
-                                        <b>VAKTSIIN</b>
+                                        <b><FormattedMessage id="pass_details_vaccine" /></b>
                                         <p>{greenPass.vaccineType}</p>
                                     </Col>
                                     <Col span={8}>
-                                        <b className="txtM">DOOSI</b>
+                                        <b className="txtM"><FormattedMessage id="pass_details_doses" /></b>
                                         <p className="txtM">{greenPass.dosesAdministered}</p>
                                     </Col>
                                     <Col span={8}>
-                                        <b className="txtR">KUUPAEV</b>
+                                        <b className="txtR"><FormattedMessage id="pass_details_dov" /></b>
                                         <p className="txtR">{greenPass.dateOfPass}</p>
                                     </Col>
                                     <Col span={24}>
-                                        <Alert message="Kehtib Eestis ja teistes Euroopa riikides!" type="success" showIcon/>
+                                        <Alert message={<FormattedMessage id="pass_available_in_eu" />} type="success" showIcon/>
                                     </Col>
                                 </Row>
                             </Card>

@@ -1,7 +1,9 @@
 import './Header.scss';
-import {Row, Col, Typography, Button} from 'antd';
+import {Button, Col, Row, Typography} from 'antd';
 import {ArrowRightOutlined} from "@ant-design/icons";
 import React, {Component} from "react";
+import {FormattedMessage} from "react-intl";
+import LanguageSelector from "../Components/LanguageSelector";
 
 const { Title, Text } = Typography;
 
@@ -80,30 +82,31 @@ class Header extends Component {
                 <Row>
                     <Col md={12} span={24}>
                         <div className="column-content col1">
-                            <Title>Laadi oma COVID-19 pass enda telefoni</Title>
-                            <Text>Kanna pass enda telefonis ja säästa aega proovides seda leida, avada ja näidata nii et
-                                teised seda ka näeksid!</Text>
+                            <Title><FormattedMessage id="header_title" /></Title>
+                            <Text><FormattedMessage id="header_subtitle" /></Text>
                             <br/>
-                            <Text strong>Lubatud dokumendid:</Text>
+                            <Text strong><FormattedMessage id="allowed_documents" /></Text>
                             <ul>
-                                <li>Eesti COVID-19 Vaktsineerimispass</li>
+                                <li><FormattedMessage id="covid_pass_name_1" /></li>
+                                <li><FormattedMessage id="covid_pass_name_2" /></li>
+                                <li><FormattedMessage id="covid_pass_name_3" /></li>
                             </ul>
-                            <Text strong>Varsti tulevad:</Text>
+                            <Text strong><FormattedMessage id="coming_soon_documents" /></Text>
                             <ul>
-                                <li>Eesti COVID-19 Testitõend</li>
-                                <li>Eesti COVID-19 Läbipõdemistõend</li>
-                                <li>Norra COVID-19 Vaktsineerimispass</li>
+                                <li><FormattedMessage id="covid_pass_test" /></li>
+                                <li><FormattedMessage id="covid_pass_beensick" /></li>
                             </ul>
                             <div className="fg"/>
                             <Text type="secondary" className="footText">
-                                vaccineconverter.eu ei salvesta töödeldud andmed.<br/>
-                                Veebilehe autor on <a href="https://github.com/ProstoSanja">Aleksandr Tsernoh</a>.
+                                <FormattedMessage id="author_is" /> <a href="https://github.com/ProstoSanja">Aleksandr Tsernoh</a>.<br/>
+                                <FormattedMessage id="not_saving_data" />
                             </Text>
                         </div>
                     </Col>
                     <Col md={12} span={24}>
                         <div className="column-content col2">
                             <div className="buttonHolder">
+                                <LanguageSelector/>
                                 <input type="file" accept="application/pdf, image/png, image/jpeg" style={{display: "none"}} ref={this.myRef} onChange={this.onFileSelected}/>
                                 <Button type="primary" shape="round" size={"large"}
                                         onDragEnter={this.onDragEnter}
@@ -111,8 +114,7 @@ class Header extends Component {
                                         onDrop={this.onFileDrop}
                                         onClick={this.onUploadFileClick}
                                 >
-                                    Alusta
-                                    <ArrowRightOutlined/>
+                                    <FormattedMessage id="begin" /> <ArrowRightOutlined/>
                                 </Button>
                             </div>
                             <div className="img" style={{backgroundImage: 'url("/cover.png")'}}>

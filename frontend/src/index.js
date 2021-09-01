@@ -5,9 +5,13 @@ import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import LanguageWrapper from './Components/LanguageWrapper'
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+      <LanguageWrapper>
+            <App />
+      </LanguageWrapper>
   </React.StrictMode>,
   document.getElementById('root')
 );

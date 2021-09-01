@@ -2,7 +2,8 @@ import './App.scss';
 import {Component} from "react";
 import Header from "./Screens/Header";
 import Pass from "./Screens/Pass";
-import { Modal, Button, Spin } from 'antd';
+import {Button, Modal, Spin} from 'antd';
+import {FormattedMessage} from "react-intl";
 
 class App extends Component {
 
@@ -31,12 +32,12 @@ class App extends Component {
         return (
             <div className="App">
                 {greenPass ? <Pass greenPass={greenPass}/> : <Header setPassCallback={this.setPassCallback} setStatus={this.setStatus}/>}
-                <Modal title="Töötleme teie passi..." visible={status==="loading"} footer={[]} closable={false}>
+                <Modal title={<FormattedMessage id="processing_pass" />} visible={status==="loading"} footer={[]} closable={false}>
                     <Spin />
                 </Modal>
-                <Modal title="Tekkis viga" visible={error != null} closable={false} footer={[
+                <Modal title={<FormattedMessage id="error_occurred" />} visible={error != null} closable={false} footer={[
                     <Button key="back" onClick={() => {this.setState({error: null})}}>
-                        Tagasi
+                        <FormattedMessage id="back" />
                     </Button>
                 ]}>
                     <p>{error}</p>
