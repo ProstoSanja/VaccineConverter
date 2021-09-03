@@ -47,11 +47,14 @@
       border-radius: 8px;
 
       &.gPay {
+        background-color: darkgrey;
+        cursor: not-allowed;
+
         background-size: 180px;
-        border: 1px solid #eee;
-        background-color: white;
+        //border: 1px solid #eee;
+        //background-color: white;
         &:hover {
-          background-color: #eee;
+          //background-color: #eee;
         }
       }
       &.aPay {

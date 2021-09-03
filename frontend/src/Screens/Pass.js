@@ -51,7 +51,10 @@ class Pass extends Component {
                     </Col>
                     <Col md={12} span={24}>
                         <div className="column-content save-buttons">
-                            <a style={{backgroundImage:'url("save_to_phone.svg")'}} className='payBut gPay' href={greenPass.googlePayLink} target={"_blank"} rel="noreferrer" >
+                            {/*<a style={{backgroundImage:'url("save_to_phone.svg")'}} className='payBut gPay' href={greenPass.googlePayLink} target={"_blank"} rel="noreferrer" >*/}
+
+                            {/*</a>*/}
+                            <a style={{backgroundImage:'url("save_to_phone.svg")'}} className='payBut gPay' rel="noreferrer" >
 
                             </a>
                             <a style={{backgroundImage:'url("save_to_apple.svg")'}} className='payBut aPay' href={greenPass.applePayLink} target={"_blank"} rel="noreferrer" >

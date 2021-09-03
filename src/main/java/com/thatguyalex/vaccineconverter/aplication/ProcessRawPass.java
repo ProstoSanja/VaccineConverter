@@ -34,7 +34,7 @@ public class ProcessRawPass {
 
     private void generatePasses(GreenPass greenPass) {
         applePassProvider.generateApplePass(greenPass);
-        googleLoyaltyRepository.generatePassLink(greenPass);
+//        googleLoyaltyRepository.generatePassLink(greenPass);
     }
 
     public byte[] getApplePass(String id) {

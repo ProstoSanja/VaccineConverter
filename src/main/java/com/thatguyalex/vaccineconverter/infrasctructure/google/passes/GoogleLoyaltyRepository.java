@@ -63,7 +63,7 @@ public class GoogleLoyaltyRepository implements IntegratedPassProvider {
             try {
                 return client.getClient().loyaltyclass().insert(loyaltyClass).execute().getId();
             } catch (Exception ee) {
-                throw new RuntimeException("Failed to insert and update pass", e);
+                throw new RuntimeException("Failed to insert and update pass class", e);
             }
         }
     }
