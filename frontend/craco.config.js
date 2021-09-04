@@ -1,4 +1,5 @@
 const CracoLessPlugin = require('craco-less');
+const path = require('path');
 
 module.exports = {
     plugins: [
@@ -18,4 +19,10 @@ module.exports = {
             },
         },
     ],
+    webpack: {
+        configure: (webpackConfig, { env, paths }) => {
+            paths.appBuild = webpackConfig.output.path = path.resolve('./../src/main/resources/static/');
+            return webpackConfig;
+        }
+    },
 };

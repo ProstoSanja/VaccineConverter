@@ -41,3 +41,4 @@ out/
 /src/main/resources/static
 /gpay
 .DS_Store
+/pass_examples

@@ -9,13 +9,8 @@ import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.QRCodeReader;
 import com.thatguyalex.vaccineconverter.domain.model.GreenPass;
+import com.thatguyalex.vaccineconverter.infrasctructure.pdftest.PdfExtractor;
 import lombok.SneakyThrows;
-import org.apache.pdfbox.cos.COSName;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.PDResources;
-import org.apache.pdfbox.pdmodel.graphics.PDXObject;
-import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.springframework.web.multipart.MultipartFile;
 import se.digg.dgc.payload.v1.DigitalCovidCertificate;
 import se.digg.dgc.service.DGCDecoder;
@@ -26,8 +21,6 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.security.SignatureException;
 import java.security.cert.CertificateExpiredException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public class GreenPassRepository {
@@ -46,18 +39,24 @@ public class GreenPassRepository {
         this.greenPassIssuerProvider = greenPassIssuerProvider;
     }
 
+    @SneakyThrows
     public GreenPass parseGreenPassFromPdf(MultipartFile file) {
-        var images = extractImageFromPdf(file);
-        for (BufferedImage image : images) {
+        var pdfExtractor = new PdfExtractor(file.getInputStream());
+        var images = pdfExtractor.getImages();
+        for (var image : images) {
             try {
-                return parseGreenPass(decodeQr(image, true));
+                var result = parseGreenPass(decodeQr(image.getImage(), true));
+                pdfExtractor.dispose();
+                return result;
             } catch (Exception e) {
                 //pls dont look at this, :( , basically separating errors into critical and not critical
                 if (e.getMessage().contains("Certificate has expired") || e.getMessage().contains("Failed to validate signature on current pass")) {
+                    pdfExtractor.dispose();
                     throw e;
                 }
             }
         }
+        pdfExtractor.dispose();
         throw new RuntimeException("Could not find any valid data in PDF");
     }
 
@@ -117,29 +116,6 @@ public class GreenPassRepository {
         } catch (Exception e) {
             throw new RuntimeException("Failed to parse QR");
         }
-    }
-
-    @SneakyThrows
-    private List<BufferedImage> extractImageFromPdf(MultipartFile file) {
-        List<BufferedImage> foundImages = new ArrayList<>();
-
-        PDDocument document = PDDocument.load(file.getInputStream());
-        for (PDPage page : document.getPages()) {
-            PDResources pdResources = page.getResources();
-            for (COSName c : pdResources.getXObjectNames()) {
-                PDXObject o = pdResources.getXObject(c);
-                if (o instanceof PDImageXObject oi) {
-                    foundImages.add(oi.getImage());
-                }
-            }
-        }
-        document.close();
-
-        if (foundImages.size() < 1) {
-            throw new RuntimeException("No data found in PDF");
-        }
-
-        return foundImages;
     }
 
 }
