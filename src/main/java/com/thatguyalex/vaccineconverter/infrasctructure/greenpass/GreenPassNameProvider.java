@@ -14,7 +14,7 @@ public class GreenPassNameProvider {
 
     @SneakyThrows
     public GreenPassNameProvider() {
-        var nameDump = new String(this.getClass().getResourceAsStream("/credentials/vaccines.json").readAllBytes());
+        var nameDump = new String(this.getClass().getResourceAsStream("/certs/vaccines.json").readAllBytes());
         certNames = new Gson().fromJson(nameDump, new TypeToken<Map<String, GreenPassName>>(){}.getType());
     }
 

@@ -36,7 +36,7 @@ public class GreenPassCertificateProvider implements CertificateProvider {
 
     @SneakyThrows
     private List<GreenPassCert> addNhsPasses() {
-        var certificateDump = new String(this.getClass().getResourceAsStream("/credentials/nhs_certs.json").readAllBytes());
+        var certificateDump = new String(this.getClass().getResourceAsStream("/certs/nhs_certs.json").readAllBytes());
         var certArray = new Gson().fromJson(certificateDump, GreenPassCert.RawNhsPassCert[].class);
 
 
@@ -45,7 +45,7 @@ public class GreenPassCertificateProvider implements CertificateProvider {
 
     @SneakyThrows
     private List<GreenPassCert> addGreenPasses() {
-        var certificateDump = new String(this.getClass().getResourceAsStream("/credentials/greenpass_certs.json").readAllBytes());
+        var certificateDump = new String(this.getClass().getResourceAsStream("/certs/greenpass_certs.json").readAllBytes());
         var certArray = new Gson().fromJson(certificateDump, GreenPassCert.RawGreenPassCert[].class);
 
         return Arrays.stream(certArray).map(this::certFromRawGreenPass).collect(Collectors.toList());
