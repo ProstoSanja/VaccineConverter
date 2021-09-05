@@ -22,7 +22,7 @@
 
                 .ant-dropdown-trigger {
                     display: inline-block !important;
-                    padding: 0 20px 0 0;
+                    padding: 0 10px 0 0;
                 }
 
                 button {
@@ -40,6 +40,10 @@
                 margin-right: 20px;
                 margin-top: 20px;
                 padding: 0 !important;
+
+                .ant-dropdown-trigger {
+                    padding: 0 20px 0 0 !important;
+                }
             }
         }
     }
@@ -68,6 +72,7 @@
                 .ant-dropdown-trigger {
                     min-width: 66px;
                     min-height: 40px;
+                    margin-left: 20px;
                 }
             }
 

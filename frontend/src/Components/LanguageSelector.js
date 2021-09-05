@@ -1,20 +1,30 @@
 import './LanguageSelector.scss';
 import {Component} from "react";
+import emojiSupport, {DetectionTypes} from 'detect-emoji-support';
+import ReactCountryFlag from "react-country-flag"
 import {Dropdown, Menu} from 'antd';
 import {Context} from "./LanguageWrapper";
 import {DownOutlined} from "@ant-design/icons";
 
 class LanguageSelector extends Component {
 
-    flagmappings = {
-        "en": "🇬🇧",
-        "et": "🇪🇪"
+
+    constructor(props, context) {
+        super(props, context);
+        if (emojiSupport(DetectionTypes.FLAGS)) {
+            this.flagmappings = {
+                "en": "🇬🇧",
+                "et": "🇪🇪"
+            }
+        } else {
+            this.flagmappings = {
+                "en": <ReactCountryFlag countryCode="GB" svg />,
+                "et": <ReactCountryFlag countryCode="EE" svg />,
+            }
+        }
     }
 
     render() {
-        console.log(this.context);
-
-
         const menu =
             <Menu onClick={this.context.selectLanguage}>
                 <Menu.Item key="en">{this.flagmappings.en}</Menu.Item>
