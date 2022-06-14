@@ -54,7 +54,7 @@ class Pass extends Component {
                             {/*<a style={{backgroundImage:'url("save_to_phone.svg")'}} className='payBut gPay' href={greenPass.googlePayLink} target={"_blank"} rel="noreferrer" >*/}
 
                             {/*</a>*/}
-                            <a style={{backgroundImage:'url("save_to_phone.svg")'}} className='payBut gPay' rel="noreferrer" >
+                            <a style={{backgroundImage:'url("save_to_phone.svg")'}} className='payBut gPay' rel="noreferrer" onClick={() => {alert("Google sent me a cease and desist, so only apple link works right now.");}}>
 
                             </a>
                             <a style={{backgroundImage:'url("save_to_apple.svg")'}} className='payBut aPay' href={greenPass.applePayLink} target={"_blank"} rel="noreferrer" >
