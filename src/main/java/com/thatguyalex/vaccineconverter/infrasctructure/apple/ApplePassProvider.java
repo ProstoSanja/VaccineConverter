@@ -33,7 +33,7 @@ public class ApplePassProvider {
     public ApplePassProvider() {
         var appCert = this.getClass().getResourceAsStream("/credentials/applecert.p12");
         var pass = new String(this.getClass().getResourceAsStream("/credentials/applecert.txt").readAllBytes()).strip();
-        var appleCert = this.getClass().getResourceAsStream("/credentials/AppleWWDRCA.cer");
+        var appleCert = this.getClass().getResourceAsStream("/credentials/AppleWWDRCAG4.cer");
 
         pkSigningInformation = new PKSigningInformationUtil().loadSigningInformationFromPKCS12AndIntermediateCertificate(
                 appCert,

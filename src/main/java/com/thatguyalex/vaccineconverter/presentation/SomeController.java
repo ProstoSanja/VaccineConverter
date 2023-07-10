@@ -3,13 +3,13 @@ package com.thatguyalex.vaccineconverter.presentation;
 import com.thatguyalex.vaccineconverter.aplication.ProcessRawPass;
 import com.thatguyalex.vaccineconverter.presentation.utils.GreenPassToResponseConverter;
 import com.thatguyalex.vaccineconverter.presentation.classes.ProcessGreenPassResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @RestController
